@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://uyoyn2guyj1b"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_dg03q"]
+
+[node name="TraderAI" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("1_dg03q")
+blackboard = NodePath("@Node@21103")
+actor = NodePath("")

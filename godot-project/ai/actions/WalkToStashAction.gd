@@ -12,6 +12,9 @@ var stash_area:StashArea
 var target_reached = false
 
 func tick(actor, blackboard):
+	if not stash_area:
+		stash_area = actor.get_stash_area()
+		
 	if not actor.is_connected("target_reached", Callable(self, "_target_reached")):
 		actor.connect("target_reached", Callable(self, "_target_reached"))
 	if self.target_reached:

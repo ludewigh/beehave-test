@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://f7j43uxup2t5"]
 
-[ext_resource path="res://ai/actions/ChopTreeAction.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://ai/actions/ChopTreeAction.gd" id="1"]
 
 [node name="ChopTreeAction" type="Node"]
-script = ExtResource( 1 )
+script = ExtResource("1")

@@ -32,28 +32,35 @@ var AnimationNames = {
 @export var MAX_SPEED: float = 75
 @export var target_position: Vector2: set = _set_target_location
 @export var house_path: NodePath
+@export var stash_area_path: NodePath
 
 @onready var animation_player = $AnimationPlayer
-@onready var navigation_agent = $NavigationAgent2D
-@onready var house:House = get_node(house_path)
+@onready var navigation_agent = $NavigationAgent2D 
 @onready var voice_sounds = $VoiceSounds
 @onready var grass_walk_sounds = $WalkOnGrassSounds
 @onready var watering_sound = $WateringSound
 
-var velocity = Vector2.ZERO
 var state = AnimationState.IDLE
 var move_direction = Vector2.ZERO
 var last_move_velocity = Vector2.ZERO
 var current_animation = null
+var house: House
+var stash_area: StashArea
 
 func _ready():
 	randomize()
+	house = get_node(house_path)
+	stash_area = get_node(stash_area_path)
 	target_position = global_position
 	navigation_agent.set_target_position(target_position)
+	velocity = Vector2.ZERO
 	
 func get_house() -> House:
 	return house
 	
+func get_stash_area() -> StashArea:
+	return stash_area
+		
 func water():
 	state = AnimationState.WATERING
 	voice_sounds.play()

@@ -23,7 +23,7 @@ func tick(actor, blackboard):
 		# no close tree available right now!
 		if closest_tree == null:
 			return FAILURE
-		blackboard.set("closest-tree", closest_tree)
+		blackboard.set_value("closest-tree", closest_tree)
 		actor.target_position = closest_tree.global_position
 	return RUNNING
 

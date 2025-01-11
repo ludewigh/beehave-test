@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpx6aj5mqhynr"]
+
+[ext_resource type="Script" path="res://ai/LumberjackAI.gd" id="2"]
+
+[node name="LumberjackAI" type="Node"]
+script = ExtResource("2")

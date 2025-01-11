@@ -1,0 +1,27 @@
+[gd_scene load_steps=8 format=3 uid="uid://7a7bfeswdufg"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_7y5u3"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="2_ys0bb"]
+[ext_resource type="PackedScene" uid="uid://cd7luf0q6ynd8" path="res://ai/actions/LeaveHouseAction.tscn" id="3_agaow"]
+[ext_resource type="PackedScene" path="res://ai/actions/WalkToClosestTreeAction.tscn" id="4_v36p7"]
+[ext_resource type="PackedScene" uid="uid://f7j43uxup2t5" path="res://ai/actions/ChopTreeAction.tscn" id="5_8u458"]
+[ext_resource type="PackedScene" path="res://ai/actions/WalkToStashAction.tscn" id="6_6ipse"]
+[ext_resource type="PackedScene" path="res://ai/actions/PlaceBoxAction.tscn" id="7_30e4x"]
+
+[node name="LumberJackAI" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("1_7y5u3")
+blackboard = NodePath("@Node@77343")
+actor = NodePath("")
+
+[node name="ChopWood" type="Node" parent="."]
+script = ExtResource("2_ys0bb")
+
+[node name="LeaveHouseAction" parent="ChopWood" instance=ExtResource("3_agaow")]
+
+[node name="WalkToClosestTreeAction" parent="ChopWood" instance=ExtResource("4_v36p7")]
+
+[node name="ChopTreeAction" parent="ChopWood" instance=ExtResource("5_8u458")]
+
+[node name="WalkToStashAction" parent="ChopWood" instance=ExtResource("6_6ipse")]
+
+[node name="PlaceBoxAction" parent="ChopWood" instance=ExtResource("7_30e4x")]

@@ -14,7 +14,7 @@ func tick(actor, blackboard):
 	if not actor.is_connected("animation_finished", Callable(self, "_animation_finished")):
 		actor.connect("animation_finished", Callable(self, "_animation_finished"))
 	
-	tree = blackboard.get("closest-tree")
+	tree = blackboard.get_value("closest-tree")
 	
 	if tree == null:
 		action_performed = false

@@ -15,6 +15,11 @@ run/main_scene="res://scenes/BehaviourTreeScene.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
 
+[autoload]
+
+BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
+BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
+
 [display]
 
 window/size/viewport_width=960
@@ -23,6 +28,7 @@ window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="2d"
 window/stretch/aspect="keep_height"
+window/stretch/scale=4.0
 window/vsync/vsync_via_compositor=true
 
 [dotnet]

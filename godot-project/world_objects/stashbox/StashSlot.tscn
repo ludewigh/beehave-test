@@ -1,18 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://cg31j0o5qfldp"]
 
-[ext_resource path="res://assets/SunnysideWorld_Tileset_V0.1.png" type="Texture2D" id=1]
-[ext_resource path="res://world_objects/stashbox/StashSlot.gd" type="Script" id=2]
-[ext_resource path="res://world_objects/stashbox/StashBox.tscn" type="PackedScene" id=3]
+[ext_resource type="Texture2D" uid="uid://cf1eenmbe3vuh" path="res://assets/SunnysideWorld_Tileset_V0.1.png" id="1"]
+[ext_resource type="Script" path="res://world_objects/stashbox/StashSlot.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://dkbc0g2mjjdo5" path="res://world_objects/stashbox/StashBox.tscn" id="3"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
-region = Rect2( 208, 256, 16, 16 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("1")
+region = Rect2(208, 256, 16, 16)
 
 [node name="StashSlot" type="Sprite2D"]
-texture = SubResource( 1 )
-script = ExtResource( 2 )
+texture = SubResource("1")
+script = ExtResource("2")
 
-[node name="StashBox" parent="." instance=ExtResource( 3 )]
+[node name="StashBox" parent="." instance=ExtResource("3")]
 visible = false
+z_index = 4
 collision_layer = 0
 collision_mask = 0
