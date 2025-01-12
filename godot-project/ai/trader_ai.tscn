@@ -1,8 +1,67 @@
-[gd_scene load_steps=2 format=3 uid="uid://uyoyn2guyj1b"]
+[gd_scene load_steps=16 format=3 uid="uid://uyoyn2guyj1b"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_dg03q"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="2_e8iec"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="3_dwb01"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="4_rbf2b"]
+[ext_resource type="PackedScene" path="res://ai/conditions/HasShipArrivedCondition.tscn" id="5_cs80f"]
+[ext_resource type="PackedScene" path="res://ai/conditions/HasStashFreeSpaceCondition.tscn" id="6_ee3ty"]
+[ext_resource type="PackedScene" path="res://ai/conditions/IsCarryingCondition.tscn" id="7_ghdex"]
+[ext_resource type="PackedScene" path="res://ai/conditions/IsStashEmptyCondition.tscn" id="8_ixrl2"]
+[ext_resource type="PackedScene" uid="uid://cv650hvpoepf0" path="res://ai/rest.tscn" id="9_rxi3o"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="10_a2thm"]
+[ext_resource type="PackedScene" uid="uid://cd7luf0q6ynd8" path="res://ai/actions/LeaveHouseAction.tscn" id="11_qrk0q"]
+[ext_resource type="PackedScene" path="res://ai/actions/WalkToStashAction.tscn" id="12_vpqq2"]
+[ext_resource type="PackedScene" path="res://ai/actions/TakeBoxAction.tscn" id="13_hijmq"]
+[ext_resource type="PackedScene" path="res://ai/actions/WalkToLocationAction.tscn" id="14_xwd0s"]
+[ext_resource type="PackedScene" path="res://ai/actions/PlaceBoxAction.tscn" id="15_pqsbj"]
 
 [node name="TraderAI" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("1_dg03q")
-blackboard = NodePath("@Node@21103")
+blackboard = NodePath("@Node@174142")
 actor = NodePath("")
+
+[node name="Either" type="Node" parent="."]
+script = ExtResource("2_e8iec")
+
+[node name="Wait" type="Node" parent="Either"]
+script = ExtResource("3_dwb01")
+
+[node name="NeedsToWait" type="Node" parent="Either/Wait"]
+script = ExtResource("2_e8iec")
+
+[node name="ShipHasNotArrivedYet" type="Node" parent="Either/Wait/NeedsToWait"]
+script = ExtResource("4_rbf2b")
+
+[node name="HasShipArrived" parent="Either/Wait/NeedsToWait/ShipHasNotArrivedYet" instance=ExtResource("5_cs80f")]
+
+[node name="ShipIsFull" type="Node" parent="Either/Wait/NeedsToWait"]
+script = ExtResource("4_rbf2b")
+
+[node name="HasStashFreeSpace" parent="Either/Wait/NeedsToWait/ShipIsFull" instance=ExtResource("6_ee3ty")]
+
+[node name="NoBoxAvailable" type="Node" parent="Either/Wait/NeedsToWait"]
+script = ExtResource("3_dwb01")
+
+[node name="IsNotCarrying" type="Node" parent="Either/Wait/NeedsToWait/NoBoxAvailable"]
+script = ExtResource("4_rbf2b")
+
+[node name="IsCarrying" parent="Either/Wait/NeedsToWait/NoBoxAvailable/IsNotCarrying" instance=ExtResource("7_ghdex")]
+
+[node name="IsStashEmpty" parent="Either/Wait/NeedsToWait/NoBoxAvailable" instance=ExtResource("8_ixrl2")]
+
+[node name="Rest" parent="Either/Wait" instance=ExtResource("9_rxi3o")]
+
+[node name="DeliverGoods" type="Node" parent="Either"]
+script = ExtResource("10_a2thm")
+
+[node name="LeaveHouseAction" parent="Either/DeliverGoods" instance=ExtResource("11_qrk0q")]
+
+[node name="WalkToStashAction" parent="Either/DeliverGoods" instance=ExtResource("12_vpqq2")]
+
+[node name="TakeBoxAction" parent="Either/DeliverGoods" instance=ExtResource("13_hijmq")]
+
+[node name="WalkToLocationAction" parent="Either/DeliverGoods" instance=ExtResource("14_xwd0s")]
+location = Vector2(72, 220)
+
+[node name="PlaceBoxAction" parent="Either/DeliverGoods" instance=ExtResource("15_pqsbj")]

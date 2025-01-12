@@ -33,6 +33,7 @@ var AnimationNames = {
 @export var target_position: Vector2: set = _set_target_location
 @export var house_path: NodePath
 @export var stash_area_path: NodePath
+@export var ship_path: NodePath
 
 @onready var animation_player = $AnimationPlayer
 @onready var navigation_agent = $NavigationAgent2D 
@@ -46,17 +47,22 @@ var last_move_velocity = Vector2.ZERO
 var current_animation = null
 var house: House
 var stash_area: StashArea
+var ship: Ship
 
 func _ready():
 	randomize()
 	house = get_node(house_path)
 	stash_area = get_node(stash_area_path)
+	ship = get_node(ship_path)
 	target_position = global_position
 	navigation_agent.set_target_position(target_position)
 	velocity = Vector2.ZERO
 	
 func get_house() -> House:
 	return house
+	
+func get_ship() -> Ship:
+	return ship
 	
 func get_stash_area() -> StashArea:
 	return stash_area

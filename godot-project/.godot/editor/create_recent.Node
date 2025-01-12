@@ -1,6 +1,8 @@
+InverterDecorator
+SequenceComposite
+SelectorComposite
+SequenceStarComposite
 TileMapLayer
 Node2D
-SelectorComposite
 BeehaveTree
-SequenceStarComposite
 BeehaveNode

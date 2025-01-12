@@ -20,3 +20,9 @@ res://world_objects/stashbox/StashSlot.tscn
 res://world_objects/stashbox/StashBox.tscn
 res://world_objects/lumbermill/Lumbermill.tscn
 res://world_objects/ship/ShipController.tscn
+res://ai/conditions/HasStashFreeSpaceCondition.gd
+res://ai/rest.tscn
+res://ai/conditions/HasShipArrivedCondition.gd
+res://ai/conditions/IsStashEmptyCondition.gd
+res://ai/actions/TakeBoxAction.gd
+res://world_objects/stashbox/StashArea.gd

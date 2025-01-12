@@ -1,10 +1,12 @@
 extends ConditionLeaf
 
-var ship:Ship: set = _set_ship
+var ship:Ship
 
 var arrived = false
 
 func tick(actor, blackboard):
+	if not ship:
+		ship = actor.get_ship()
 	if arrived or not ship.departed:
 		return SUCCESS
 	return FAILURE

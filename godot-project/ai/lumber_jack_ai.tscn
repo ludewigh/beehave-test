@@ -1,27 +1,54 @@
-[gd_scene load_steps=8 format=3 uid="uid://7a7bfeswdufg"]
+[gd_scene load_steps=14 format=3 uid="uid://7a7bfeswdufg"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_7y5u3"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="2_tbayl"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="2_ys0bb"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="3_1o30w"]
 [ext_resource type="PackedScene" uid="uid://cd7luf0q6ynd8" path="res://ai/actions/LeaveHouseAction.tscn" id="3_agaow"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="4_idmx6"]
 [ext_resource type="PackedScene" path="res://ai/actions/WalkToClosestTreeAction.tscn" id="4_v36p7"]
 [ext_resource type="PackedScene" uid="uid://f7j43uxup2t5" path="res://ai/actions/ChopTreeAction.tscn" id="5_8u458"]
+[ext_resource type="PackedScene" path="res://ai/conditions/HasGrownTreeCondition.tscn" id="5_dqncj"]
 [ext_resource type="PackedScene" path="res://ai/actions/WalkToStashAction.tscn" id="6_6ipse"]
+[ext_resource type="PackedScene" path="res://ai/conditions/HasStashFreeSpaceCondition.tscn" id="6_icjrl"]
 [ext_resource type="PackedScene" path="res://ai/actions/PlaceBoxAction.tscn" id="7_30e4x"]
+[ext_resource type="PackedScene" uid="uid://cv650hvpoepf0" path="res://ai/rest.tscn" id="7_r13fa"]
 
 [node name="LumberJackAI" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("1_7y5u3")
-blackboard = NodePath("@Node@77343")
+blackboard = NodePath("@Node@173965")
 actor = NodePath("")
 
-[node name="ChopWood" type="Node" parent="."]
+[node name="Either" type="Node" parent="."]
+script = ExtResource("2_tbayl")
+
+[node name="Wait" type="Node" parent="Either"]
+script = ExtResource("3_1o30w")
+
+[node name="NeedsToWait" type="Node" parent="Either/Wait"]
+script = ExtResource("2_tbayl")
+
+[node name="HasNoGrownTree" type="Node" parent="Either/Wait/NeedsToWait"]
+script = ExtResource("4_idmx6")
+
+[node name="HasGrownTree" parent="Either/Wait/NeedsToWait/HasNoGrownTree" instance=ExtResource("5_dqncj")]
+
+[node name="HasNoFreeSpace" type="Node" parent="Either/Wait/NeedsToWait"]
+script = ExtResource("4_idmx6")
+
+[node name="HasStashFreeSpace" parent="Either/Wait/NeedsToWait/HasNoFreeSpace" instance=ExtResource("6_icjrl")]
+
+[node name="Rest" parent="Either/Wait" instance=ExtResource("7_r13fa")]
+
+[node name="ChopWood" type="Node" parent="Either"]
 script = ExtResource("2_ys0bb")
 
-[node name="LeaveHouseAction" parent="ChopWood" instance=ExtResource("3_agaow")]
+[node name="LeaveHouseAction" parent="Either/ChopWood" instance=ExtResource("3_agaow")]
 
-[node name="WalkToClosestTreeAction" parent="ChopWood" instance=ExtResource("4_v36p7")]
+[node name="WalkToClosestTreeAction" parent="Either/ChopWood" instance=ExtResource("4_v36p7")]
 
-[node name="ChopTreeAction" parent="ChopWood" instance=ExtResource("5_8u458")]
+[node name="ChopTreeAction" parent="Either/ChopWood" instance=ExtResource("5_8u458")]
 
-[node name="WalkToStashAction" parent="ChopWood" instance=ExtResource("6_6ipse")]
+[node name="WalkToStashAction" parent="Either/ChopWood" instance=ExtResource("6_6ipse")]
 
-[node name="PlaceBoxAction" parent="ChopWood" instance=ExtResource("7_30e4x")]
+[node name="PlaceBoxAction" parent="Either/ChopWood" instance=ExtResource("7_30e4x")]

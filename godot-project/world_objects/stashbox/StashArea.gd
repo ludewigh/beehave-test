@@ -53,7 +53,8 @@ func place(slot:int) -> bool:
 		emit_signal("on_place")
 	return success
 	
-func take(slot:int) -> StashSlot:
+#func take(slot:int) -> StashSlot:	
+func take(slot:int) -> bool:
 	var success = slots.get_child(slot).take_box()
 	if success:
 		take_sound.play()

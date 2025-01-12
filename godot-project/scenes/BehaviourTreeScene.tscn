@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://ce36yq1hg3ubc"]
+[gd_scene load_steps=20 format=4 uid="uid://ce36yq1hg3ubc"]
 
 [ext_resource type="Texture2D" uid="uid://cf1eenmbe3vuh" path="res://assets/SunnysideWorld_Tileset_V0.1.png" id="1"]
 [ext_resource type="PackedScene" uid="uid://bkh4vlmgonj4d" path="res://world_objects/lumbermill/Lumbermill.tscn" id="2"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://7a7bfeswdufg" path="res://ai/lumber_jack_ai.tscn" id="8_hmwa2"]
 [ext_resource type="PackedScene" uid="uid://clyjqjkty3kdt" path="res://world_objects/stashbox/StashArea.tscn" id="9"]
 [ext_resource type="PackedScene" path="res://util/CameraController.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://uyoyn2guyj1b" path="res://ai/trader_ai.tscn" id="10_3wof4"]
 [ext_resource type="PackedScene" path="res://ui/FocusUI.tscn" id="11"]
 [ext_resource type="AudioStream" uid="uid://cybnapubg8ymp" path="res://assets/nature-sound.ogg" id="12"]
 [ext_resource type="AudioStream" uid="uid://dbuhdoxeoq1nl" path="res://assets/water.ogg" id="13"]
@@ -110,7 +111,7 @@ house_path = NodePath("../../Buildings/LumberjackHouse")
 stash_area_path = NodePath("../../Buildings/StashArea")
 
 [node name="LumberJackAI" parent="Objects/Villagers/Lumberjack" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("8_hmwa2")]
-blackboard = NodePath("@Node@131286")
+blackboard = NodePath("@Node@176899")
 actor = NodePath("..")
 
 [node name="Forester" parent="Objects/Villagers" instance=ExtResource("4")]
@@ -122,6 +123,10 @@ stash_area_path = NodePath("../../Buildings/StashArea")
 position = Vector2(177, 155)
 house_path = NodePath("../../Buildings/TraderHouse")
 stash_area_path = NodePath("../../Buildings/StashArea")
+ship_path = NodePath("../../Ship")
+
+[node name="TraderAI" parent="Objects/Villagers/Trader" node_paths=PackedStringArray("blackboard") instance=ExtResource("10_3wof4")]
+blackboard = NodePath("@Node@176900")
 
 [node name="Trees" type="Node2D" parent="Objects"]
 

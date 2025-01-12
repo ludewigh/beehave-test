@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://cv650hvpoepf0"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="1_ebykn"]
+[ext_resource type="PackedScene" path="res://ai/conditions/IsRestingCondition.tscn" id="2_gq4ku"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="3_6r2ek"]
+[ext_resource type="PackedScene" path="res://ai/actions/WalkToHouseAction.tscn" id="4_d4l64"]
+[ext_resource type="PackedScene" path="res://ai/actions/EnterHouseAction.tscn" id="5_67gqy"]
+
+[node name="Rest" type="Node"]
+script = ExtResource("1_ebykn")
+
+[node name="IsResting" parent="." instance=ExtResource("2_gq4ku")]
+
+[node name="GoHome" type="Node" parent="."]
+script = ExtResource("3_6r2ek")
+
+[node name="WalkToHouseAction" parent="GoHome" instance=ExtResource("4_d4l64")]
+
+[node name="EnterHouseAction" parent="GoHome" instance=ExtResource("5_67gqy")]
